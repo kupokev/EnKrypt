@@ -93,6 +93,8 @@ Starting from index [1] 'g':
 You then add them all together = 46
 
 
-#### * Phase 2: Integer to Duotrigesimal
+#### * Phase 2: Integer to Duotrigesimal (ConvertBase10ToBase32)
+
+This process uses a vary similar formula as phase 1 does. During this phase we take an integer (base 10) and beak it up into smaller chunks that can be represented as duotrigesimals (base 32). Duotrigesimal is similar to Hexidecimal (base 16) in the sense that it uses letters to represent numbers over 9. Duotrigesimal does the same thing, it just has more letters. This allows us to store much bigger numbers with fewer characters. For example, if we take the 2 integers from Phase 1 and convert them to Duotrigesimal, we will get R8 6H 47 1E. "R86H471E" is more space convenient than "872209135.46" (I am just using a '.' to seperate the integer value so they can me stored in a string).
 
 To be documented...
