@@ -5,6 +5,8 @@ Custom Cipher library that I am just building to play with different ways of man
 
 ### Section 1: Alphabet
 
+Note: This is just current implementation. I plan on developing more on this in the future. Currently I just needed basic alphabet for making the cipher work. Eventually I plan on adding functionality for creating better aplhabets or creating alphabets from passwords.
+
 #### Step 1. Create the "alphabet" array to use.
 
 The only rulw for creating an alphabet is it must contain all letters of the test in the array. For eaxmple "Test String" would be broke down to "Test Sring". However, you can add more characters to the alphabet to make it harder to crack the cipher if you wish.
