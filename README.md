@@ -131,3 +131,5 @@ The max number in Duotrigesimal is vv which represents 1023 in base 10. So we it
 46:
 
 46 = 1E
+
+Revision (11/22/2015): If a '0' ever appears on the beginning of a number such as "0755" the 0 needs to be represented as "00" so that the value is not lost.
