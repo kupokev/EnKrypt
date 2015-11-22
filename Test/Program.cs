@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test
 {
@@ -29,11 +25,9 @@ namespace Test
             Console.WriteLine("Ciphered (Custom Alphabet):");
             ciphered = CipherManager.Encrypt(value, alphabet);
             Console.WriteLine(ciphered);
-            //Console.WriteLine(EnKrypt.Ciphers.ShiftN.Core.Condense(ciphered));
             Console.WriteLine("");
-
+            
             Console.WriteLine("Deciphered:");
-            //Console.WriteLine(EnKrypt.Ciphers.ShiftN.ShiftN32.Decipher(ciphered));
             Console.WriteLine(CipherManager.Decrypt(ciphered, alphabet));
             Console.WriteLine("");
 

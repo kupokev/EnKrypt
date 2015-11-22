@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnKrypt.Ciphers.Duotrige
 {
@@ -65,16 +63,14 @@ namespace EnKrypt.Ciphers.Duotrige
         /// <param name="alphabet"></param>
         /// <returns></returns>
 
-        protected string ConvertToIntString(string text, char[] alphabet)
+        protected List<string> ConvertToIntString(string text, char[] alphabet)
         {
-            var value = "";
+            var value = new List<string>();
             var shelf = FillShelf(text, alphabet);
 
             foreach (var record in shelf)
             {
-                value += record.ToString();
-
-                // if (shelf.IndexOf(record) < shelf.Count) value += ".";
+                value.Add(record.ToString());
             }
 
             return value;

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnKrypt.Ciphers.Duotrige
 {
@@ -10,15 +7,22 @@ namespace EnKrypt.Ciphers.Duotrige
     {
         public string Encrypt(string text, char[] alphabet)
         {
-            var value = "";
-
             Alphabet = alphabet;
 
-            value = ConvertToIntString(text, alphabet);
+            var strings = ConvertToIntString(text, alphabet);
 
-            Console.WriteLine("Int Value: " + value);
+            Console.WriteLine("Int Value: ");
 
-            value = ConvertBase10ToBase32(value);
+            var value = "";
+
+            foreach(var s in strings)
+            {
+                Console.WriteLine(s.ToString());
+                value += ConvertBase10ToBase32(s);
+
+                if ((strings.IndexOf(s) + 1) < strings.Count) value += ".";
+            }
+            
 
             return value;
         }
@@ -48,7 +52,14 @@ namespace EnKrypt.Ciphers.Duotrige
                 {
                     if (String.IsNullOrWhiteSpace(toCondense)) break;
 
-                    if (toCondense.Length < maxNumberLength)
+                    if (Convert.ToInt32(toCondense.Substring(0, 1)) == 0)
+                    {
+                        int i = 0;
+
+                        toConcat = toConcat + CalculateValue(i, NumberBase);
+                        toCondense = toCondense.Substring(1, toCondense.Length - 1);
+                    }
+                    else if (toCondense.Length < maxNumberLength)
                     {
                         int i = Convert.ToInt32(toCondense);
                         toConcat = toConcat + CalculateValue(i, NumberBase);
@@ -63,6 +74,7 @@ namespace EnKrypt.Ciphers.Duotrige
                     else
                     {
                         int i = Convert.ToInt32(toCondense.Substring(0, maxNumberLength - 1));
+
                         toConcat = toConcat + CalculateValue(i, NumberBase);
                         toCondense = toCondense.Substring(maxNumberLength - 1, toCondense.Length - (maxNumberLength - 1));
                     }
