@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace EnKrypt.Ciphers.Duotrige
@@ -15,11 +14,9 @@ namespace EnKrypt.Ciphers.Duotrige
         public string Decrypt(string text, char[] alphabet)
         {
             var toReturn = "";
-            //var value = ConvertBase32ToBase10(text);
 
             Alphabet = alphabet;
 
-            //foreach(var segment in SegmentIntString(value))
             foreach (var segment in text.Split('.'))
             {
                 if (!String.IsNullOrWhiteSpace(segment))
@@ -30,48 +27,6 @@ namespace EnKrypt.Ciphers.Duotrige
             }
             
             return toReturn;
-        }
-
-        private List<int> SegmentIntString(string text)
-        {
-            var toReturn = new List<int>();
-
-            //var complete = false;
-            //var index = 0;
-
-            //do
-            //{
-            //    if (index >= text.Length) break;
-
-            //    var length = int.MaxValue.ToString().Length;
-            //    if (text.Length - index < length) length = text.Length - index;
-
-            //    var value = GetIntValueFromString(text.Substring(index, length));
-            //    toReturn.Add(value);
-
-            //    length = value.ToString().Length;
-            //    index = index + length;
-            //} while (!complete);
-
-            foreach(var segment in text.Split('.'))
-            {
-                if (!String.IsNullOrWhiteSpace(segment))
-                    toReturn.Add(Convert.ToInt32(segment));
-            }
-
-            return toReturn;
-        }
-
-        private int GetIntValueFromString(string text)
-        {
-            if (Convert.ToInt64(text) < int.MaxValue)
-            {
-                return Convert.ToInt32(text);
-            }
-            else
-            {
-                return Convert.ToInt32(text.Substring(0, text.Length - 1));
-            }
         }
 
         private string ConvertFromIntToString(int value)
