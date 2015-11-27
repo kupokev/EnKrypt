@@ -14,7 +14,7 @@ namespace Test
             value = Console.ReadLine();
             Console.WriteLine("");
 
-            var alphabet = new EnKrypt.Ciphers.Duotrige.Alphabet().GenerateAlphabet(value);
+            var alphabet = new EnKrypt.Ciphers.Duotrige.Alphabet().GenerateShortAlphabet(value);
             Console.WriteLine("Custom Alphabet:");
             Console.WriteLine(new string(alphabet));
             Console.WriteLine("");

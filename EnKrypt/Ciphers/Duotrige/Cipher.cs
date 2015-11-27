@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EnKrypt.Ciphers.Duotrige
+﻿namespace EnKrypt.Ciphers.Duotrige
 {
     public class Cipher
     {
@@ -29,7 +23,7 @@ namespace EnKrypt.Ciphers.Duotrige
         /// <returns></returns>
         public string Encrypt(string text, string password)
         {
-            var alphabet = new Alphabet().GenerateAlphabet(password);
+            var alphabet = new Alphabet().GenerateAlphabetFromPassword(password);
 
             var manager = new EncryptionManager();
 
@@ -57,7 +51,7 @@ namespace EnKrypt.Ciphers.Duotrige
         /// <returns></returns>
         public string Decrypt(string text, string password)
         {
-            var alphabet = new Alphabet().GenerateAlphabet(password);
+            var alphabet = new Alphabet().GenerateAlphabetFromPassword(password);
 
             var manager = new DecryptionManager();
 
