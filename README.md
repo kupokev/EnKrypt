@@ -1,135 +1,75 @@
 # EnKrypt
 Custom Cipher library that I am just building to play with different ways of manipulating data.
 
-## The Cipher
+## Ciphers
 
-### Section 1: Alphabet
+### ShiftC
 
-Note: This is just current implementation. I plan on developing more on this in the future. Currently I just needed basic alphabet for making the cipher work. Eventually I plan on adding functionality for creating better aplhabets or creating alphabets from passwords.
+This cipher takes a few concepts and melds them together. I strictly built this for learning different data manipulating techniques.
 
-#### Step 1. Create the "alphabet" array to use.
+The original cipher I built used a simple shift algorithm to encrypt the text I call the Hex Shift algorithm. While it was interesting to build, it wasn't practical at all. There was no way to really incorporate an password that seemed very feasible.
 
-The only rulw for creating an alphabet is it must contain all letters of the test in the array. For eaxmple "Test String" would be broke down to "Test Sring". However, you can add more characters to the alphabet to make it harder to crack the cipher if you wish.
-
-#### Step 2. Sort Array. 
-
-Sort the character array  by descending. Group the lower case letters by themselves, upper case letters by themselves, and then the puncuation. So the array from above "Test Sring" would become "tsrnigeTS ". 
-
-[0] 't'
-[1] 's'
-[2] 'r'
-[3] 'n'
-[4] 'i'
-[5] 'g'
-[6] 'e'
-[7] 'T'
-[8] 'S'
-[9] ' '
-
-### Section 2. Encrypting the text
-
-#### * Phase 1: Text to Integer
-
-#### Step 1. Break the string into a character array. 
-
- [0] 'T'
- [1] 'e'
- [2] 's'
- [3] 't'
- [4] ' '
- [5] 'S'
- [6] 't'
- [7] 'r'
- [8] 'i'
- [9] 'n'
-[10] 'g'
-
-#### Step 2. Convert string to numbers.
-
-This process is done by iterating through the string and converting the string to integers using the following formula. 
-
-(alphabet length) to the power of (the letter array's length - 1 for each iteration through). Multiply that number by (the letter's index) plus 1.
-
-Note that the max value of an integer is 2,147,483,647. Since we can not convert a larger string into integers this way, we must convert the string into multiple integers.
-
-String 1: "Test Stri" (872,209,135)
-String 2: "ng" (46)
+Years later I was watching someone mess with a Rubix cube which sparked another idea. What if I put characters of a text into a cube (multidimensional array) and did a series of hex shifts based on some numeric value. This lead me to my latest round of updates.
 
 
-String 1:
+#### Hex Shift Algorithm
 
-Starting from index [0] 'T':
+The shift was done by first converting characters to their hex value. Once converted to hex, the individual hex values would shift 1 character and then converted bac into characters.
 
-(10 ^ (9 - 1)) * (7 + 1) = 800,000,000
+For example:
 
-Then [1] 'e':
+Kupo = 4B 75 70 6F
 
-(10 ^ (9 - 2)) * (6 + 1) = 70,000,000
+Would convert to the following
 
-Then [2] 's':
-
-(10 ^ (9 - 3)) * (1 + 1) = 2,000,000
-
-Then [3] 't':
-(10 ^ (9 - 4)) * (0 + 1) = 100,000
-
-Then [4] ' ':
-
-(10 ^ (9 - 5)) * (9 + 1) = 100,000
-
-Then [5] 'S':
-
-(10 ^ (9 - 6)) * (8 + 1) = 9,000
-
-Then [6] 't':
-
-(10 ^ (9 - 7)) * (0 + 1) = 100
-
-Then [7] 'r':
-
-(10 ^ (9 - 8)) * (2 + 1) = 30
-
-Then [8] 'i':
-
-(10 ^ (9 - 9)) * (4 + 1) = 5
-
-You then add them all together = 872,209,135
+B7 57 06 F4
 
 
-String 2:
+#### Cubes
 
-Starting from index [0] 'n':
+The cubes are a minimum of 3x3x3. The cubes expand to a size that will contain enough elements to fit each character of the text. So a string up to 27 character will fit in a 3x3x3. Between 28 and 64 the cube will be a 4x4x4.
 
-(10 ^ (2 - 1)) * (3 + 1) = 40
+If there are any empty elements in the cube after the plain text has been populated, the rest of the elements will be populated with a character "0". This is so that no element is left empty.
 
-Starting from index [1] 'g':
+When populated, a cube should look something like the below text
 
-(10 ^ (2 - 2)) * (5 + 1) = 6
+Text: Testing a short string
 
-You then add them all together = 46
+Layer 0:
 
+  T  t  g
 
-#### * Phase 2: Integer to Duotrigesimal (ConvertBase10ToBase32)
+  0  o  0
 
-This process uses a vary similar formula as phase 1 does. During this phase we take an integer (base 10) and beak it up into smaller chunks that can be represented as duotrigesimals (base 32). Duotrigesimal is similar to Hexidecimal (base 16) in the sense that it uses letters to represent numbers over 9. Duotrigesimal does the same thing, it just has more letters. This allows us to store much bigger numbers with fewer characters. For example, if we take the 2 integers from Phase 1 and convert them to Duotrigesimal, we will get R8 6H 47 1E. "R86H471E" is more space convenient than "872209135.46" (I am just using a '.' to seperate the integer value so they can me stored in a string).
-
-This phase really isn't meant to "encrypt" anything. It really was meant more for condensing the end result down to a smaller character count.
-
-
-The max number in Duotrigesimal is vv which represents 1023 in base 10. So we iterate through each integer and break it down to smaller numbers in the base 32 system.
+  r  g  0
 
 
-872209135:
+Layer 1:
 
-872 = R8
+  e  i  0
 
-209 = 6H
+  s  r  s
 
-135 = 47
+  i  0  0
 
 
-46:
+Layer 2:
 
-46 = 1E
+  s  n  a
 
-Revision (11/22/2015): If a '0' ever appears on the beginning of a number such as "0755" the 0 needs to be represented as "00" so that the value is not lost.
+  h  t  t
+
+  n  0  0
+
+
+#### Encrypting the text
+
+When a password is provided, it is converted to an integer. This is done by taking each individual letter of the password and converting it to an integer. Once all characters have been converted, they are added up.
+
+Once the password has been converted to an integer, the integer has a sqare root calculation performed on it until the result returns a double and not a whole number. 
+
+The numbers on the right side of the decimal is then used as the password combination.
+
+I am looking for better methods for using a password. This was just a simple, easy way to come up with a combination of numbers to use as for turning the cube.
+
+
