@@ -1,28 +1,14 @@
-﻿namespace EnKrypt.Utilities
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 
+namespace EnKrypt
+{
     internal static class CubeUtility
     {
-        /// <summary>
-        /// Populate the 3D array with a string
-        /// </summary>
-        /// <param name="text">String to insert into array</param>
-        /// <returns></returns>
-        internal static char[,,] Fill(string text)
+        internal static char[,,] Fill(string value)
         {
-            return Fill(text.ToCharArray());
-        }
+            var text = value.ToCharArray();
 
-        /// <summary>
-        /// Populate the 3D array with a string
-        /// </summary>
-        /// <param name="text">String to insert into array</param>
-        /// <returns></returns>
-        internal static char[,,] Fill(char[] text)
-        {
             // Get the ceiling of the cube root of text length
             short length = Convert.ToInt16(Math.Ceiling(Math.Pow(text.Length, 1d / 3d)));
 
@@ -73,13 +59,7 @@
 
             // Initialize new cube
             char[,,] cube = new char[length, length, length];
-
-            // Calculate number of characters in cube
-            int arrayLength = length * length * length;
-
-            // Create new Character array 
-            char[] cipher = new char[arrayLength];
-
+            
             // To track where we are in the text string
             int index = 0;
 
@@ -193,7 +173,9 @@
             short length = Convert.ToInt16(Math.Pow(cube.Length, 1d / 3d));
 
             // Get the actual layer number
-            int[] layers = GetLayers(layer, length).Reverse().ToArray();
+            int[] layers = GetLayers(layer, length);
+
+            Array.Reverse(layers);
 
             foreach (var l in layers)
             {
@@ -432,7 +414,7 @@
                     {
                         int l = layer * i;
 
-                        if (l > 0) l = l - 1;
+                        if (l > 0) l -= 1;
 
                         layers.Add(l);
                     }

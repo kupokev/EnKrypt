@@ -3,16 +3,7 @@ Custom Cipher library that I am just building to play with different ways of man
 
 ## Ciphers
 
-### ShiftC
-
-This cipher takes a few concepts and melds them together. I strictly built this for learning different data manipulating techniques.
-
-The original cipher I built used a simple shift algorithm to encrypt the text I call the Hex Shift algorithm. While it was interesting to build, it wasn't practical at all. There was no way to really incorporate an password that seemed very feasible.
-
-Years later I was watching someone mess with a Rubix cube which sparked another idea. What if I put characters of a text into a cube (multidimensional array) and did a series of hex shifts based on some numeric value. This lead me to my latest round of updates.
-
-
-#### Hex Shift Algorithm
+#### Rubyk
 
 The shift was done by first converting characters to their hex value. Once converted to hex, the individual hex values would shift 1 character and then converted bac into characters.
 
@@ -71,5 +62,3 @@ Once the password has been converted to an integer, the integer has a sqare root
 The numbers on the right side of the decimal is then used as the password combination.
 
 I am looking for better methods for using a password. This was just a simple, easy way to come up with a combination of numbers to use as for turning the cube.
-
-
