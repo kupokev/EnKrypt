@@ -1,6 +1,29 @@
 # EnKrypt
 Custom Cipher library that I am just building to play with different ways of manipulating data.
 
+## Usage
+
+    // Set password and message
+    var password = "Testing#158";
+    var message = "This is a random test message";
+
+    // Show original message
+    Console.WriteLine("Original Message");
+    Console.WriteLine(message);
+
+    // Generate key from password
+    var key = EnKrypt.Rubyk.GetKey(password);
+
+    // Encrypt the message
+    var cipher = EnKrypt.Rubyk.Encrypt(message, key);
+
+    Console.WriteLine(Environment.NewLine + "Encrypted Message");
+    Console.WriteLine(cipher);
+
+    // Decrypt the message
+    Console.WriteLine(Environment.NewLine + "Decrypted Message");
+    Console.WriteLine(EnKrypt.Rubyk.Decrypt(cipher, key));
+
 ## Ciphers
 
 #### Rubyk
@@ -9,11 +32,11 @@ The shift was done by first converting characters to their hex value. Once conve
 
 For example:
 
-Kupo = 4B 75 70 6F
+    Kupo = 4B 75 70 6F
 
 Would convert to the following
 
-B7 57 06 F4
+    B7 57 06 F4
 
 
 #### Cubes
@@ -26,39 +49,28 @@ When populated, a cube should look something like the below text
 
 Text: Testing a short string
 
-Layer 0:
+    Layer 0:
 
-  T  t  g
+        T  t  g
 
-  0  o  0
+        0  o  0
 
-  r  g  0
+        r  g  0
 
+    Layer 1:
 
-Layer 1:
-
-  e  i  0
-
-  s  r  s
-
-  i  0  0
-
-
-Layer 2:
-
-  s  n  a
-
-  h  t  t
-
-  n  0  0
+        e  i  0
+        
+        s  r  s
+        
+        i  0  0
 
 
-#### Encrypting the text
+    Layer 2:
 
-When a password is provided, it is converted to an integer. This is done by taking each individual letter of the password and converting it to an integer. Once all characters have been converted, they are added up.
+        s  n  a
+        
+        h  t  t
+        
+        n  0  0
 
-Once the password has been converted to an integer, the integer has a sqare root calculation performed on it until the result returns a double and not a whole number. 
-
-The numbers on the right side of the decimal is then used as the password combination.
-
-I am looking for better methods for using a password. This was just a simple, easy way to come up with a combination of numbers to use as for turning the cube.
