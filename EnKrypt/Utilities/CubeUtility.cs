@@ -34,8 +34,7 @@ namespace EnKrypt
                         // If we ran out of characters to populate, use the placeholder
                         if (index < text.Length)
                         {
-                            cube[k, i, j] = text[index];
-                            index++;
+                            cube[k, i, j] = text[index++];
                         }
                         else
                         {
@@ -59,7 +58,10 @@ namespace EnKrypt
 
             // Initialize new cube
             char[,,] cube = new char[length, length, length];
-            
+
+            // Set placeholder
+            char ph = (char)Convert.ToInt32("00", 16);
+
             // To track where we are in the text string
             int index = 0;
 
@@ -69,8 +71,15 @@ namespace EnKrypt
                 {
                     for (int k = 0; k < length; k++)
                     {
-                        cube[i, j, k] = text[index];
-                        index++;
+                        // If we ran out of characters to populate, use the placeholder
+                        if (index < text.Length)
+                        {
+                            cube[i, j, k] = text[index++];
+                        }
+                        else
+                        {
+                            cube[k, i, j] = ph;
+                        }
                     }
                 }
             }
@@ -102,8 +111,7 @@ namespace EnKrypt
                 {
                     for (int k = 0; k < length; k++)
                     {
-                        cipher[index] = cube[i, j, k];
-                        index++;
+                        cipher[index++] = cube[i, j, k];
                     }
                 }
             }
@@ -135,8 +143,7 @@ namespace EnKrypt
                 {
                     for (int k = 0; k < length; k++)
                     {
-                        cipher[index] = cube[k, i, j];
-                        index++;
+                        cipher[index++] = cube[k, i, j];
                     }
                 }
             }
@@ -192,8 +199,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layerz[index] = cube[i, j, l];
-                        index++;
+                        layerz[index++] = cube[i, j, l];
                     }
                 }
 
@@ -209,8 +215,7 @@ namespace EnKrypt
                     {
                         if (index < layerz.Length)
                         {
-                            cube[i, j, l] = layerz[index];
-                            index++;
+                            cube[i, j, l] = layerz[index++];
                         }
                     }
                 }
@@ -224,8 +229,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layery[index] = cube[i, l, j];
-                        index++;
+                        layery[index++] = cube[i, l, j];
                     }
                 }
 
@@ -241,8 +245,7 @@ namespace EnKrypt
                     {
                         if (index < layery.Length)
                         {
-                            cube[i, l, j] = layery[index];
-                            index++;
+                            cube[i, l, j] = layery[index++];
                         }
                     }
                 }
@@ -256,8 +259,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layerx[index] = cube[l, i, j];
-                        index++;
+                        layerx[index++] = cube[l, i, j];
                     }
                 }
 
@@ -273,8 +275,7 @@ namespace EnKrypt
                     {
                         if (index <= layerx.Length)
                         {
-                            cube[l, i, j] = layerx[index];
-                            index++;
+                            cube[l, i, j] = layerx[index++];
                         }
                     }
                 }
@@ -311,8 +312,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layerx[index] = cube[l, i, j];
-                        index++;
+                        layerx[index++] = cube[l, i, j];
                     }
                 }
 
@@ -326,8 +326,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        cube[l, i, j] = layerx[index];
-                        index++;
+                        cube[l, i, j] = layerx[index++];
                     }
                 }
 
@@ -340,8 +339,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layery[index] = cube[i, l, j];
-                        index++;
+                        layery[index++] = cube[i, l, j];
                     }
                 }
 
@@ -355,8 +353,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        cube[i, l, j] = layery[index];
-                        index++;
+                        cube[i, l, j] = layery[index++];
                     }
                 }
 
@@ -369,8 +366,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        layerz[index] = cube[i, j, l];
-                        index++;
+                        layerz[index++] = cube[i, j, l];
                     }
                 }
 
@@ -384,8 +380,7 @@ namespace EnKrypt
                 {
                     for (int j = 0; j < length; j++)
                     {
-                        cube[i, j, l] = layerz[index];
-                        index++;
+                        cube[i, j, l] = layerz[index++];
                     }
                 }
             }
