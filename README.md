@@ -1,5 +1,10 @@
 # EnKrypt
-Custom Cipher library that I am just building to play with different ways of manipulating data.
+Custom Cipher library that I am just building to play with different ways of manipulating data. 
+The cipher is a complex shift cipher that shifts the hex digits of characters in the text in a multiple dimensional shift. 
+
+This is my first attempt at a cipher and I realize it is likely not a super strong cipher. 
+I would welcome any feedback on it. 
+I also would not reccomend using it for an application that requires super strong ciphers. 
 
 ## Usage
 
