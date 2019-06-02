@@ -2,7 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <AssemblyName>EnKrypt Standard</AssemblyName>
+    <AssemblyName>EnKrypt.Standard</AssemblyName>
+    <Authors>Kevin Williams</Authors>
+    <RepositoryUrl>https://github.com/kupokev/EnKrypt</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/kupokev/EnKrypt</PackageProjectUrl>
+    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    <Description>EnKrypt.Standard is a simple encryption library using a complex shift algorithm.</Description>
+    <PackageTags>C#, cipher, encryption, EnKrypt, .NET</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="EnKrypt.Standard.1.0.0.nupkg" />
+  </ItemGroup>
 
 </Project>
