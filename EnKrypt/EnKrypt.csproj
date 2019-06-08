@@ -6,13 +6,23 @@
     <Authors>Kevin Williams</Authors>
     <RepositoryUrl>https://github.com/kupokev/EnKrypt</RepositoryUrl>
     <PackageProjectUrl>https://github.com/kupokev/EnKrypt</PackageProjectUrl>
-    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <Description>EnKrypt.Standard is a simple encryption library using a complex shift algorithm.</Description>
     <PackageTags>C#, cipher, encryption, EnKrypt, .NET</PackageTags>
+    <Version>1.0.1</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants />
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="EnKrypt.Standard.1.0.0.nupkg" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
