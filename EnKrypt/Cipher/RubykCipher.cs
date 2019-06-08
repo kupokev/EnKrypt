@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace EnKrypt
 {
@@ -10,11 +11,27 @@ namespace EnKrypt
 
         public string Decrypt(string value, byte[] key)
         {
+            char[,,] cube;
+
             // Reverse array
             Array.Reverse(key);
 
-            // Populate cube
-            var cube = CubeUtility.FillReverse(value);
+            try
+            {
+                // Decode to UTF8
+                var decoded = Encoding.UTF8.GetString(
+                        System.Convert.FromBase64String(value),
+                        0,
+                        System.Convert.FromBase64String(value).Length
+                    );
+
+                // Populate cube
+                cube = CubeUtility.FillReverse(decoded);
+            }
+            catch
+            {
+                throw new Exception("There was an error decoding the text");
+            }
             
             // Get length of cube
             short length = Convert.ToInt16(Math.Ceiling(Math.Pow(cube.Length, 1d / 3d)));
@@ -29,11 +46,7 @@ namespace EnKrypt
             }
 
             // Flatten cube to string
-            var flat = CubeUtility.FlattenReverse(cube);
-            
-            var retVal = new string(flat);
-            
-            return retVal.Replace('\0', ' ').Trim();
+            return new string(CubeUtility.FlattenReverse(cube)).Replace('\0', ' ').Trim();
         }
 
         public string Encrypt(string value, byte[] key)
@@ -53,13 +66,10 @@ namespace EnKrypt
                 }
             }
 
-            // Flatten cube to string
-            var flat = CubeUtility.Flatten(cube);
-
             // Shift text in string by hex
-            var retVal = new string(flat);
+            byte[] data = Encoding.UTF8.GetBytes(new string(CubeUtility.Flatten(cube)));
 
-            return retVal;
+            return Convert.ToBase64String(data);
         }
     }
 }
