@@ -8,6 +8,8 @@ I also would not reccomend using it for an application that requires super stron
 
 ## Usage
 
+Using a key
+
     // Set password and message
     var password = "Testing#158";
     var message = "This is a random test message";
@@ -28,6 +30,26 @@ I also would not reccomend using it for an application that requires super stron
     // Decrypt the message
     Console.WriteLine(Environment.NewLine + "Decrypted Message");
     Console.WriteLine(EnKrypt.Rubyk.Decrypt(cipher, key));
+
+Using a plain text password
+
+    // Set password and message
+    var password = "Testing#158";
+    var message = "This is a random test message";
+
+    // Show original message
+    Console.WriteLine("Original Message");
+    Console.WriteLine(message);
+
+    // Encrypt the message
+    var cipher = EnKrypt.Rubyk.Encrypt(message, password);
+
+    Console.WriteLine(Environment.NewLine + "Encrypted Message");
+    Console.WriteLine(cipher);
+
+    // Decrypt the message
+    Console.WriteLine(Environment.NewLine + "Decrypted Message");
+    Console.WriteLine(EnKrypt.Rubyk.Decrypt(cipher, password));
 
 ## Ciphers
 
