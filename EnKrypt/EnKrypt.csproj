@@ -8,8 +8,8 @@
     <PackageProjectUrl>https://github.com/kupokev/EnKrypt</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <Description>EnKrypt.Standard is a simple encryption library using a complex shift algorithm.</Description>
-    <PackageTags>C#, cipher, encryption, EnKrypt, .NET</PackageTags>
-    <Version>1.0.1</Version>
+    <PackageTags>C#, cipher, encryption, EnKrypt, .NET, netstandard</PackageTags>
+    <Version>1.0.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
