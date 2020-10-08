@@ -5,14 +5,12 @@ namespace EnKrypt
     internal static class HexUtility
     {
         /// <summary>
-        /// Shift hex string to the left
+        /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        internal static char[] ShiftLeft(char[] value)
+        internal static string ConvertToHex(char[] value)
         {
-            char[] n = new char[value.Length];
-            
             string hexS = "";
 
             foreach (char b in value)
@@ -20,9 +18,19 @@ namespace EnKrypt
                 hexS += String.Format("{0:x2}", Convert.ToInt32(b));
             }
 
-            byte[] ba = StringToByteArray(hexS);
+            return BitConverter.ToString(StringToByteArray(hexS));
+        }
 
-            hexS = BitConverter.ToString(ba);
+        /// <summary>
+        /// Shift hex string to the left
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        internal static char[] ShiftLeft(char[] value)
+        {
+            char[] n = new char[value.Length];
+
+            string hexS = ConvertToHex(value);
 
             string[] hexA = hexS.Split('-');
 
@@ -35,7 +43,7 @@ namespace EnKrypt
             // Shift text
             hexS = string.Join("", hexA) + hexA[0];
             hexS = hexS.Substring(1, hexS.Length - 2);
-            
+
             var array = StringToByteArray(hexS);
 
             for (int i = 0; i < n.Length; i++)
@@ -56,22 +64,13 @@ namespace EnKrypt
             char[] n = new char[value.Length];
 
             // Shift Right
-            string hexS = "";
-
-            foreach (char b in value)
-            {
-                hexS += String.Format("{0:x2}", Convert.ToInt32(b));
-            }
-
-            byte[] ba = StringToByteArray(hexS);
-
-            hexS = BitConverter.ToString(ba);
+            string hexS = ConvertToHex(value);
 
             string[] hexA = hexS.Split('-');
 
             hexS = hexA[hexA.Length - 1] + string.Join("", hexA);
             hexS = hexS.Substring(1, hexS.Length - 2);
-            
+
             var array = StringToByteArray(hexS);
 
             for (int i = 0; i < n.Length; i++)
@@ -82,6 +81,11 @@ namespace EnKrypt
             return n;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private static byte[] StringToByteArray(string value)
         {
             if (value.Length % 2 != 0)
@@ -90,7 +94,9 @@ namespace EnKrypt
             }
 
             int NumberChars = value.Length;
+
             byte[] bytes = new byte[NumberChars / 2];
+
             for (int i = 0; i < NumberChars; i += 2)
                 bytes[i / 2] = Convert.ToByte(value.Substring(i, 2), 16);
             return bytes;

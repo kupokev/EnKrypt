@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="nuget\**" />
+    <EmbeddedResource Remove="nuget\**" />
+    <None Remove="nuget\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="EnKrypt.Standard.1.0.0.nupkg" />
     <None Include="..\LICENSE">
       <Pack>True</Pack>
