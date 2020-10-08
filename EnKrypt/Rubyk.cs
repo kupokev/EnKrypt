@@ -1,5 +1,4 @@
-﻿using EnKrypt.Hash;
-using System.Text;
+﻿using System.Text;
 
 namespace EnKrypt
 {
@@ -69,25 +68,6 @@ namespace EnKrypt
         public static byte[] GetKey(string password)
         {
             return UTF8Encoding.Unicode.GetBytes(password);
-        }
-
-        public static class Hash
-        {
-            public static class ENK
-            {
-                /// <summary>
-                /// Generate a hash based on value
-                /// </summary>
-                /// <param name="value"></param>
-                /// <returns></returns>
-                public static string GetHash(string value)
-                {
-                    using (var hash = new RubykHash())
-                    {
-                        return hash.GetHash(value);
-                    }
-                }
-            }
         }
     }
 }
