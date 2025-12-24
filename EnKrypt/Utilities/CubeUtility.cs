@@ -422,5 +422,102 @@ namespace EnKrypt
 
             return layers.ToArray();
         }
+
+        /// <summary>
+        /// Applies a nibble shift (left or right) to a specific axis layer for a given count.
+        /// Axis: 0 = X (cube[l, i, j]), 1 = Y (cube[i, l, j]), 2 = Z (cube[i, j, l]).
+        /// </summary>
+        /// <param name="cube"></param>
+        /// <param name="axis">0=X, 1=Y, 2=Z</param>
+        /// <param name="layer">Layer index (0-based)</param>
+        /// <param name="shiftLeft">True for left nibble rotation, false for right</param>
+        /// <param name="count">Number of nibble rotations to apply</param>
+        /// <returns></returns>
+        internal static char[,,] ApplyAxisLayerShift(char[,,] cube, int axis, int layer, bool shiftLeft, int count)
+        {
+            short length = Convert.ToInt16(Math.Pow(cube.Length, 1d / 3d));
+
+            if (layer < 0 || layer >= length)
+            {
+                return cube;
+            }
+
+            // Extract the axis layer into a flat buffer
+            char[] buffer = new char[length * length];
+            int index = 0;
+
+            if (axis == 0)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        buffer[index++] = cube[layer, i, j];
+                    }
+                }
+            }
+            else if (axis == 1)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        buffer[index++] = cube[i, layer, j];
+                    }
+                }
+            }
+            else // axis == 2
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        buffer[index++] = cube[i, j, layer];
+                    }
+                }
+            }
+
+            // Apply nibble rotation count times
+            if (count < 0) count = 0;
+            for (int r = 0; r < count; r++)
+            {
+                buffer = shiftLeft ? HexUtility.ShiftLeft(buffer) : HexUtility.ShiftRight(buffer);
+            }
+
+            // Write back into cube
+            index = 0;
+            if (axis == 0)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        cube[layer, i, j] = buffer[index++];
+                    }
+                }
+            }
+            else if (axis == 1)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        cube[i, layer, j] = buffer[index++];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int j = 0; j < length; j++)
+                    {
+                        cube[i, j, layer] = buffer[index++];
+                    }
+                }
+            }
+
+            return cube;
+        }
     }
 }
